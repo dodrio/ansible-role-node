@@ -1,0 +1,17 @@
+---
+- name: add NodeSource Node.js Binary Distributions repository
+  yum_repository:
+    name: nodesource-el
+    description: NodeSource Node.js Binary Distributions
+    baseurl: https://rpm.nodesource.com/pub_{{ node_major_version }}.x/el/$releasever/$basearch
+    gpgkey: https://rpm.nodesource.com/pub/el/NODESOURCE-GPG-SIGNING-KEY-EL
+    gpgcheck: yes
+    enabled: yes
+
+- name: ensure nodejs is installed
+  yum:
+    name: '{{ item }}'
+    state: latest
+  with_items:
+    - nodejs
+    - nodejs-devel
